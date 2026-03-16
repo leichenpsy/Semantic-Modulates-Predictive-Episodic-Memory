@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<head>
+    <!--Pavlovia-->
+    <!-- <link rel="shortcut icon" href="#"> -->
+    <!-- <script type="text/javascript" src="https://run.pavlovia.org/leipsy/image-size-mem/lib/vendors/jspsych-6.0.0/jspsych.js"></script> -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://run.pavlovia.org/leipsy/image-size-mem/lib/vendors/jspsych-6.0.0/css/jspsych.css"/> -->
+    <!-- <script type="text/javascript" src="https://run.pavlovia.org/leipsy/image-size-mem/lib/vendors/jspsych-6.0.0/plugins/jspsych-html-keyboard-response.js"></script> -->
+    <!-- <script type="text/javascript" src="https://run.pavlovia.org/leipsy/image-size-mem/lib/jspsych-pavlovia-3.0.0.js"></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+
+    <!-- to check if participants are on mobile -->
+    <!-- <script type="text/javascript" src="https://wurfl.io/wurfl.js"></script> -->
+    <!-- load local plugin files -->
+    
+    <script type = 'text/javascript' src = 'jspsych/dist/jspsych.js'></script>
+    <script type = 'text/javascript' src = 'jspsych/dist/plugin-html-keyboard-response.js'></script>
+    <script type = 'text/css' rel = 'stylesheet' href = 'jspsych/dist/jspsych.css'></script>
+    <script src = 'jquery-3.6.0.min.js'></script>
+    <script src = 'jquery-ui.min.js'></script>
+    <script type = 'text/javascript' src = 'Phonology1.4.js'></script>
+    
+   <!-- css style -->
+   <style>
+       body{
+           height: 100%;
+           margin: 0 auto;
+           width: 900px;
+       }
+       #participantInfo {
+            width: 600px;
+            margin: 100 px, auto;
+            font-family: Calibri, Arial, Helvetica;
+            font-size: 16px;
+            text-align: center;
+       }
+       #participantID, #expVersion {
+           width: 50px;
+       }
+       .instructions {
+            width: 800px;
+            font-family: Calibri, Arial, Helvetica;
+            font-size: 16px;
+            text-align: center;
+            margin: auto;
+       }
+       img{
+           display:block;
+           width: 450px;
+           height: 100%;
+           margin: auto;
+       }
+       #suitcase{
+           height: 50%;
+           display: block;
+           margin: auto;
+       }
+       #consentPhoto{
+           display: block;
+           width: 800px;
+           margin: auto;
+       }
+       .fixation{
+           font-size: 24px;
+           text-align: center;
+           font-weight: 800;
+           margin-top: 260px;
+       }
+       #memoryTestInstruct, #trialInstruction, #mathInstruction{
+            width: 800px;
+            margin: 0 auto;
+            font-family: Calibri, Arial, Helvetica;
+            font-size: 16px;
+       }
+       #feedback{
+            margin: 20px auto;
+            text-align: center;
+            font-family: Calibri, Arial, Helvetica;
+            font-size: 16px;
+       }
+       #mathQuestion{
+            width: 800px;
+            margin: 50px auto;
+            text-align: center;
+            font-family: Calibri, Arial, Helvetica;
+            font-size: 36px;
+       }
+       #predictPicture{
+           margin-top: 50px;
+       }
+       #memoryTestOption1, #memoryTestOption2{
+           display: flex;
+           width: 800px;
+           margin: auto;
+           justify-content: space-evenly;
+       }
+       #demogs{
+           width: 800px;
+           margin: auto;
+           text-align: left;
+       }
+       #demogsSubmit, #saveID{
+           width: 100px;
+           margin: auto;
+           background-color: grey;
+           border: 1px solid black;
+           font: black;
+       }
+       #ageAlert{
+           font: red 24px;
+       }
+       #submitButton{
+           margin-left: 50px;
+           text-align: center;
+           background-color: grey;
+           border: 1px solid black;
+           width: 100px;
+       }
+     
+
+   </style>
+</head>
+<body>
+    <form id = 'participantInfo'>
+        <p>Please enter the participant ID :  <input id="participantID" name="participantID"/></p>
+        <p>Please enter the experiment version : <input id='expVersion' name = 'expVersion'></p>
+        <p>Please enter the group number: <input id = 'groupID' name = 'groupID'></p>
+        <p id = 'saveID'> Continue </p>
+    </form>
+    <div id = 'mobile' class = 'instructions' style = 'display:none'>
+        <p>You are currently on a tablet or mobile phone. You must be on a computer with a keyboard and mouse to complete the experiment. If you do not have access to a computer with a mouse/trackpad and keyboard, please let the experimenter know. Thanks for your understanding!</p>
+    </div>
+      
+    <div id = 'consent' class = 'instructions' style = 'display:none'> 
+        <p>Please read the consent form below. Press space bar to consent.</p> 
+        <p><img src="../experiment materials/concept_combination_consent_form.jpg" width="800px" id = 'consentPhoto'></p>
+    </div>
+    <div id = 'welcome' class = 'instructions' style = 'display: none'>
+        <!-- <p>Welcome! This experiment is not optimized for tablets or phones. Please complete this in a web browser on your computer. You will need a keyboard and a mouse or trackpad to complete the tasks.</p> -->
+        <!-- <p>We also ask that you make the experiment fill your entire screen, so that all of the images and instructions are correctly presented. On a Mac, try pressing Command-Control-F. On a PC, try pressing F11.</p> -->
+        <p>Welcome! This experiment will take about 75 minutes to complete, from start to end.
+        <p>Press the space bar to begin.</p>
+    </div>
+  
+    <div id = 'attention' class='instructions' style = 'display: none'>
+        <p>Please direct your full attention towards the experiment. No talking, texting, music, or videochat! This is to ensure that we collect high quality data.</p>
+        <p>Thank you for your cooperation!</p>
+        <p>Press space bar to continue.</p>
+    </div>
+
+    <div id = 'session1Instruction' class = 'instructions' style = 'display: none'>
+        <p>In this session, you will see pictures of different objects and you need to decide if the name of the object depicted in each image contains one syllable or two.</p>
+        <p>For example, <strong>Cake</strong> has only one syllable while <strong>Pizza</strong> has two syllables. </p>
+        <p>Please press space bar to continue. </p>
+    </div>
+    <div id = 'session1PracInstruction1' class = 'instructions' style = 'display: none'>
+        <p>Let's practice!</p>
+        <p>Now you will see some example images and hear the name of the object in each image.</p>
+        <p>Please press '1' if the name of the object contains only one syllable and press '2' if the name contains two syllables.</p>
+        <p>A blue border surrounding the image will show up once you press a key.</p>
+        <p>You will receive feedback about your accuracy after every trial.</p>
+        <p>Press space bar to begin.</p>
+    </div>
+    <div id = 'session1PracInstruction2' class = 'instructions' style = 'display: none;'>
+        <p>Now let's do more practice trials. However, now you will not see or hear the names of the objects in these trials.</p>
+        <p>Please press '1' if the name of the object contains only one syllable and press '2' if the name contains two syllables.</p>
+        <p>Please make judgments as quickly and accurately as possible. Each image will be displayed for <strong>only 1.5 second</strong>.</p>
+        <p>You will receive feedback about your accuracy after every trial.</p>
+        <p>Your accuracy level for these trials must be 100% in order to proceed to the main trials. If you do not reach 100% accuracy, you will repeat the practice.</p>
+        <p>Press space bar to begin.</p>
+    </div>
+    <div id = 'session1BeginInstruction' class = 'instructions' style = 'display: none'>
+        <p>Good job, you’re ready to start the main trials now. This session will take 10 minutes, with a 30-second break in the middle.</p>
+        <p><strong>All the possible names of the objects have appeared in the previous practice. When making judgements, please use the names from the practice. </strong></p>
+        <p>Please try your best to complete this task. </p>
+        <p>No feedback will be provided after each trial.</p>
+        <p>Press space bar to start!</p>
+    </div> 
+    <div id = 'session1RepInstruction' class = 'instructions' style = 'display: none'>
+        <p>Looks like you have not reached 100% accuracy. Please try the practice again.</p>
+        <p>Press space bar to start.</p>
+    </div> 
+
+    <div id = 'session2Instruction' class = 'instructions' style = 'display: none'>
+        <p>In this session, you will do a few simple division and subtraction math problems. The answer to each problem will be either ‘1’, ’2’, ’3’ or ‘4’.</p>
+        <p>Please press '1', '2', '3' or '4' as the answer to each question.</p>
+        <p>Please answer each question as quickly and accurately as possible. You have a max of 5 seconds for each question.</p>
+        <p>No feedback would be provided. This session would take 5 minutes, without breaks.</p>
+        <p>This is a simple math task. Please direct your full attention towards the task. </p>
+        <p>Press space bar to begin.</p>
+    </div>
+    <div id = 'predictTestInstruction' class = 'instructions' style = 'display: none'>
+        <p>In this next session, for each trial you will see two sequences of images, separated by a black cross. Each sequence consists of two images. You have not seen either of these sequences in the name syllable judgment task, but you may have seen similar ones. Please indicate which of the two sequences is more similar to what you have experienced in the prior task.</p>
+        <p>Please press '1' if you feel the first sequence is more similar and '2' if you feel the second is more similar.</p>
+        <p>Please try your best to respond as quickly and accurately as possible. </p>
+        <p>Press space bar to begin.</p>
+    </div>
+    <div id = 'memoryTestInstruction' class = 'instructions' style = 'display: none'>
+        <p>In this session, you will be tested for your memory of the images you viewed in this experiment. In each trial, you will judge if the present image is old (i.e. you have already seen it in this experiment) or new (i.e. you have never seen it in this experiment).</p>
+        <p id = 'memoryTestInstructOption1'>Please press 'D' if you are sure that the image is old, 'F' if if you think the image is old but are unsure, 'J' if you think the image is new but are unsure, or 'K' if you are sure that the image is new.</p>
+        <p id = 'memoryTestInstructOption2'>Please press 'D' if you are sure that the image is new, 'F' if if you think the image is new but are unsure, 'J' if you think the image is old but are unsure, or 'K' if you are sure that the image is old.</p>
+        <p>Please try your best to respond as quickly and accurately as possible. </p>
+        <p>Press space bar to begin.</p>
+    </div>
+    <div id = 'session1Screen'>
+        <p id = 'fixation' class = 'fixation'></p>
+        <div id = 'displayTrial' style = 'display: none'>
+            <div id = 'trialInstruction'>
+                <p>Please press '1' if its name contains only one syllable and '2' if its name contains two syllables. </p>
+            </div>
+            <img id = 'encodePicture' src = ''>
+            <audio id = 'pracAudio' src = '' style = 'display:none'></audio>
+            <p id = 'feedback'></p>
+        </div>
+    </div>
+    <div id = 'breakScreen' style = 'display: none' class = 'instructions'>
+        <p>Now you have a 30-second break.</p>
+        <p id = '10sWarning'>The experiment will resume in 10 seconds!</p>
+        <p id = '5sWarning'>The experiment will resume in 5 seconds!</p>
+        <p id = '1sWarning'>The experiment will resume in 1 second!</p>
+    </div>
+    <div id = 'mathDistractScreen'>
+        <div id = 'mathDisplayTrial' style = 'display: none'>
+            <div id = 'mathInstruction'>
+                <p>Please press '1','2','3' or '4' as the answer to the below question.</p>
+            </div>
+            <p id = 'mathQuestion'></p>
+        </div>
+    </div> 
+    <div id = "predictTestScreen">
+        <p id = 'predictFixation' class = 'fixation'></p>
+        <img id = 'predictPicture' src = '' style = 'display: none'>
+        <div id = 'predictTestTrialInstruction' class = 'instructions' style = 'display: none'>
+            <p>Please press '1' if you feel the first sequence is more similar and '2' if you feel the second sequence is more similar</p>
+        </div>
+    </div>
+    <div id = 'memoryTestScreen'>
+        <p id = 'memoryTestFixation' class = 'fixation'></p>
+        <div id = 'memoryTestInstruct'  style = 'display: none' class = 'instructions'>
+            <p>Is this an old or new image?</p>
+        </div>
+        <img id = 'memoryTestPicture' src = '' style = 'display : none'>
+        <div id = 'memoryTestOption1' style = 'display : none' class = 'memoryTestOptions'>
+            <p>Sure old<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>D</u></p>
+            <p>Unsure old<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>F</u></p>
+            <p>Unsure new<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>J</u></p>
+            <p>Sure new<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>K</u></p>
+        </div>
+        <div id = 'memoryTestOption2' style = 'display : none' class = 'memoryTestOptions'>
+                <p>Sure new<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>D</u></p>
+                <p>Unsure new<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>F</u></p>
+                <p>Unsure old<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>J</u></p>
+                <p>Sure old<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>K</u></p>
+        </div>
+    </div>
+
+	<!-- <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+        <input type='hidden' value='' name='assignmentId' id='assignmentId'/>
+        <div id = 'responses'></div>
+        <p id = 'submitInstruct' class = 'instructions' style = 'display: none'>
+            You are done! Thank you for participating! Please click *Submit* to finish your HIT.
+        <br>Please email leipsy@sas.upenn.edu with any issues</p>
+        <input type='submit' id='submitButton' value='Submit' style = 'display: none'> -->
+
+        <!-- demographcis -->
+        <div id="demogs" class="instructions" style = 'display: none'>
+            <p>Finally, please tell us a few things about you! After you complete the survey, click continue to proceed. The button will work only after you fill in required fields (marked with *). </p>
+            <!-- <p>Age *:<input id="age" name="Age" type="text"  onkeyup="checkAge()"><span id = "ageAlert" style = 'display:none'>Age must be an integer larger than 0</span></p>
+            <p>Gender *:<select id="gender" name="Gender">
+                <option>Choose:</option>
+                <option>Female</option>
+                <option>Male</option>
+                <option>Other</option></select>
+            </p>
+            <p>Native Language *: <input id="nativeLang" name="nativeLang"/></p>
+            <p>What device did you use to complete this task? * <select id="device" name="Device">
+                <option>Choose:</option>
+                <option>Desktop computer</option>
+                <option>Laptop</option>
+                <option>Tablet</option>
+                <option>Phone</option>
+                <option>Other</option>
+                </select>
+            </p> -->
+            <div id = 'intentionSurvey'>
+                <p class = 'instructions'>What do you think this experiment is about? *</p>
+                <br><textarea id = 'intention' name = 'intention' cols = '100' rows = '5'></textarea>
+            </div>
+            <div id ="feedback" class="instructions">
+                <p>If you have any comments about the task or experienced any glitches, let us know: 
+                <br><textarea id="comments" name="Comments" cols="100" rows="5"></textarea>
+                </p>
+            </div>
+            <div id = 'demogsSubmit'>Continue</div>
+      </div>
+  <!-- </form> -->
+    <script>
+
+        // if(WURFL.is_mobile === true){
+        
+        //     $('#mobile').show()
+
+        // }else{
+
+        //     $('#consent').show()
+        // }
+        var participantID = '';
+        var expVersion = '';
+        $('#saveID').click(function(){
+            participantID = $('#participantID').val();
+            expVersion = $('#expVersion').val()
+            if(participantID !== '' & expVersion !== ''){
+                $('#participantInfo').hide();
+                $('#consent').show()
+            }
+        })
+        
+        $(document).keydown(function(e){if(e.keyCode == 32){e.preventDefault()}});
+    </script>
+    <!-- <script src = 'https://run.pavlovia.org/leipsy/image-size-mem/run.js'></script> -->
+    <script>
+        // function checkAge(){
+        //     var ageValue = $('#age').val();
+        //     age = Number(ageValue);
+        //     if(!Number.isInteger(age) || age <= 0){
+        //         $('#ageAlert').show();
+        //         return false;
+        //     }else{
+        //         $('#ageAlert').hide();
+        //         return true;
+        //     }
+        // }
+        function checkForm(){
+            // var checkFormResult = checkAge();
+            // var languageValue = $('#nativeLang').val();
+            // if(languageValue == ''){
+            //     $('#nativeLang').css({'border-color': 'red',
+            //                         'border-width': '1px',
+            //                         'border-style': 'solid'})
+            //     checkFormResult = false;
+            // }
+            // var genderValue = $('#gender').val();
+            // if(genderValue == 'Choose:'){
+            //     $('#gender').css({'border-color': 'red',
+            //                         'border-width': '1px',
+            //                         'border-style': 'solid'})
+            //     checkFormResult = false;
+            // }
+            // var deviceValue = $('#device').val();
+            // if(deviceValue == 'Choose:'){
+            //     $('#device').css({'border-color': 'red',
+            //                         'border-width': '1px',
+            //                         'border-style': 'solid'})
+            //     checkFormResult = false;
+            // }
+            var checkFormResult = false;
+            var intentionValue = $('#intention').val();
+            if(intentionValue == ''){
+                $('#intention').css({'border-color': 'red',
+                                    'border-width': '1px',
+                                    'border-style': 'solid'})
+                checkFormResult = false;
+            }else{
+                checkFormResult = true
+            }
+            return checkFormResult;   
+        }
+        $('#demogsSubmit').click(function(){
+            console.log('click demog submit')
+            var checkFormResult = checkForm();
+            if(checkFormResult){
+                var intentionValue = $('#intention').val();
+                var commentValue = $('#comments').val();
+                
+                saveData['demog'].push({intention: intentionValue},{comments: commentValue});
+                console.log(saveData['demog'][0].intention)
+                $('#demogs').hide();
+                // for (var i in saveData){
+                //     for(var j = 0; j< saveData[i].length;j++){
+                //         createInputElement(saveData[i][j],i)
+                //     }
+                // }
+                $(document).unbind('keydown');
+                end_time = new Date();
+                // getBrowserInfo(true);
+                // createInputElement(pairsCombo, 'pairsCombo');
+                // createInputElement(encodeSequence,'encodeSequence');
+                // createInputElement(fillerCombo,'fillerCombo');
+                // createInputElement(predictTestSequence,'predictTestSequence');
+                // createInputElement(memoryTestPictures,'memoryTestSequence')
+                // checkHitAccepted();
+
+                // saveData['demog'].push({age:ageValue,language:languageValue,gender:genderValue,device:deviceValue,intention:intentionValue,comments:commentValue});
+                postTest();
+
+                
+                // $('#submitInstruct').show();
+                // $('#submitButton').show();
+            }
+        })
+    </script>
+</body>

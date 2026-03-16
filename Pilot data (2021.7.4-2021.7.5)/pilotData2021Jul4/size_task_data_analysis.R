@@ -1,0 +1,88 @@
+library(readr)
+library(tidyverse)
+
+#Import all the data files
+dataFiles <- list.files(path = '/Users/leichen/Research project/Predictive memory/Pilot data (2021.7.4-2021.7.5)',pattern = '*.csv',full.names = TRUE)
+
+#Compile all the data files into one data frame
+rawData <- data.frame(matrix(nrow = 0, ncol = length(colnames(read.csv(dataFiles[1]))),dimnames = list(NULL, colnames(read.csv(dataFiles[1])))))
+for (x in 1:length(dataFiles)){
+  dataFile <- read.csv(dataFiles[x]) %>%
+    mutate(id = x) 
+  rawData <- rbind(rawData,dataFile)
+}
+
+#abstract sebsets of encodeData
+encodeData <- rawData %>%
+  subset(currTask == 'encodePictures',select = c(currTask,currTrial,stimulus,response,correctResponse,responseTime,type,predictType,sizeType,id)) %>%
+  mutate(acc = ifelse(response == correctResponse,1,0)) %>%
+  mutate(subCategory = str_sub(stimulus,1,2)) %>%
+  mutate(genCategory = str_sub(stimulus,1,1)) 
+
+#group by id,calculate each participant's acc and correct response time
+#check no_response and too_fast response
+sizeTask <- encodeData %>%
+  group_by(id) %>%
+  filter(responseTime != 0 & responseTime < 250) %>%
+  summarize(fastResponse_count = n())
+encodeTask <- encodeData %>%
+  group_by(id) %>%
+  filter(responseTime !=0) %>%
+  summarise(response_count = n()) %>%
+  cbind(fastResponse_count = sizeTask$fastResponse_count) %>%
+  mutate(fastResponse_rate = fastResponse_count/response_count,no_response_rate = 1-response_count/256)
+#plot the distribution of response time
+rtDistribute <- encodeData %>%
+  filter(responseTime !=0)
+ggplot(rtDistribute,mapping = aes(x = responseTime))+
+    geom_histogram(aes(y = ..density..),binwidth = 100, color = 'black',fill = 'white')+
+    geom_density(alpha = 0.2, fill = '#FF6666') +
+    facet_wrap(.~id)
+
+#size-task data: general category
+## idSets either (1,4,5,8,9,10,11) or (1,4,5,10,11)
+idSets <- c(1,4,5,10,11)
+cover_task <- encodeData %>%
+  filter(responseTime != 0 & (id %in% idSets)) %>%
+  group_by(id,genCategory) %>%
+  summarise(responseCount = n(),
+            accLevel = sum(acc)/responseCount) 
+cover_task <- encodeData %>%
+  filter(id %in% idSets) %>%
+  group_by(id,genCategory) %>%
+  summarise(responseCount = n(),
+            accLevel = sum(acc)/responseCount) 
+ggplot(cover_task,mapping = aes(x = genCategory, y = accLevel, group =1)) +
+    stat_summary(fun = 'mean',geom = 'line')+
+    theme_classic()
+
+#size_task data: subCategories
+cover_task <- encodeData %>%
+  filter(responseTime != 0 & (id %in% idSets)) %>%
+  group_by(subCategory) %>%
+  summarise(responseCount = n(),
+            accLevel = sum(acc)/responseCount)
+cover_task <- encodeData %>%
+  filter(id %in% idSets) %>%
+  group_by(subCategory) %>%
+  summarise(responseCount = n(),
+            accLevel = sum(acc)/responseCount)
+ggplot(cover_task, mapping = aes(x = subCategory, y = accLevel, group = 1))+
+  geom_line()+
+  geom_point()+
+  theme_classic()
+
+#size-task data: general category
+cover_task <- encodeData %>%
+  filter(responseTime != 0 & (id %in% c(1,4,5,8,9,10,11))) %>%
+  group_by(id,genCategory) %>%
+  summarise(responseCount = n(),
+            accLevel = sum(acc)/responseCount) 
+cover_task <- encodeData %>%
+  filter(id %in% c(1,4,5,8,9,10,11)) %>%
+  group_by(id,genCategory) %>%
+  summarise(responseCount = n(),
+            accLevel = sum(acc)/responseCount) 
+ggplot(cover_task,mapping = aes(x = genCategory, y = accLevel, group =1)) +
+  stat_summary(fun = 'mean',geom = 'line')+
+  theme_classic()

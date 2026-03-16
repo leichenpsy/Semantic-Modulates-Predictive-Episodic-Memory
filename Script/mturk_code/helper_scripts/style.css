@@ -1,0 +1,75 @@
+
+/* iframe height matches body height here, set manually in mturk */
+body {
+	background-color: gray;
+	width: 800px;
+	margin: 0 auto;
+}
+
+#contact, #trialCounter {
+	margin: 5px auto;
+	font-family: Calibri, Arial, Helvetica;
+	font-size: 14px;
+	text-align: left;
+}
+
+.instructions {
+	width: 800px;
+	margin: 0 auto;
+	font-family: Calibri, Arial, Helvetica;
+	font-size: 18px;
+	text-align: center;
+	display: none;
+
+}
+
+/* inherit all else from .instructions */
+#demogs {
+	text-align: left;
+}
+
+#taskInstructions {
+	font-size: 24px;
+	font-family: Calibri, Arial, Helvetica;
+	text-align: center;
+	margin: 25px 0;
+}
+
+/* buttons to advance sections */
+/* hide all until needed */
+button {
+	font-size: 24px;
+	font-family: Calibri, Arial, Helvetica;
+	margin: 10px auto;
+	display:block;
+	user-select: none;
+}
+
+	/* AMT submit button -- keep separate */
+#submitButton {
+	display: none;
+}
+
+
+#buttons {
+	margin:0px auto 0px auto;
+	height: 150px;
+	display:none;
+}
+
+
+#buttons div {
+	font-size: 24px;
+	font-family: Calibri, Arial, Helvetica;
+	text-align: center;
+	margin: 30px 0;
+}
+
+#buttons button {
+	width: 216px;
+	padding: 10px 24px;
+    background-color: white;
+    border: 1px solid black;
+    float: left; /* Float the buttons side by side */
+    margin: 0 25px;
+}
